@@ -23,7 +23,6 @@ function getChoice(){
             console.log(queryStuInfo)
             let stuInfoInput = readlineSync.question();
             judgeFormat.judgeFormat(stuInfoInput,allOfStuInfo)
-            console.log(allOfStuInfo)
         } else if(answer ==='2'){
             console.log(printStuInfo)
 
