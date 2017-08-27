@@ -13,39 +13,60 @@ function judgePrintInfo(text){
 }
 
 function printResult(printInfo,allInfo){
-    console.log('成绩单'+'\n'+'姓名|数学|英语|平均分|总分'+'\n'+'=========================')
+    console.log('成绩单'+'\n'+'姓名|Chinese|Math|English|平均分|总分'+'\n'+'==============================')
     findAndPrint(printInfo,allInfo)
+    console.log('==============================')
+    let allScoreInfo=calAllStuInfo(allInfo)
+    console.log('全班总分平均数：'+allScoreInfo['allAve'])
+    console.log('全班总分中位数：'+allScoreInfo['median'])
+
+}
+
+function calAllStuInfo(allInfo){
+    let sum=[];
+    let allScore=0;
+    allInfo.forEach(function(item){
+        sum.push(parseInt(item['Chinese'],10)+parseInt(item['Math'],10)+parseInt(item['English'],10))
+    })
+    sum.forEach(function(item){
+        allScore+=item
+    })
+    let allStuAve = (allScore/allInfo.length).toFixed(1)
+    let medianScore = sum[Math.ceil(sum.length/2)]
+    return{allAve:allStuAve,median:medianScore}
+
+
 
 }
 
 function find(allInfo,item){
-    allInfo.forEach(function(ele){
-        console.log(ele.id,item)
-        if(ele.id==item){
-            console.log('哈哈哈找到了')
-            return ele
+    for(let i =0;i<allInfo.length;i++){
+        if(allInfo[i].id==item){
+            return allInfo[i]
         }
-    })
+    }
     return false
+
 }
 
 function printThisStu(item){
     let sum=0;
-    sum+=parseInt(item['语文'],10)
-    sum+=item['数学']
-    sum+=item['英语']
+    sum+=parseInt(item['Chinese'],10)
+    sum+=parseInt(item['Math'],10)
+    sum+=parseInt(item['English'],10)
     item.sum=sum
-    item.average=sum/3
-    console.log(item.name+'|'+item['语文']+'|'+item['数学']+'|'+item['英语']+'|'+item.average+'|'+item.sum)
+    item.average=(sum/3).toFixed(2)
+    console.log(item.name+'|'+item['Chinese']+'|'+item['Math']+'|'+item['English']+'|'+item.average+'|'+item.sum)
 }
 
 function findAndPrint(printInfo,allInfo){
     printInfo.forEach(function(item){
         let finded =find(allInfo,item)
         if(finded){
-            printThisStu(finded,allInfo)
+            printThisStu(finded)
         }
     })
+
 }
 
 module.exports={
