@@ -1,8 +1,13 @@
 "use strict";
+var _ = require("lodash");
 var chai = require("chai");
+var sinon = require("sinon");
+var sinonChai = require("sinon-chai");
 var expect = chai.expect;
+chai.use(sinonChai);
 
-describe("map reduce", function(){
+
+describe("测试描述", function(){
     before(function () {
         Array.prototype.reduce = function(fn, initialValue) {
             var result = initialValue;
